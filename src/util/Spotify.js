@@ -3,7 +3,7 @@ let accessToken = '';
 let expiresIn = '';
 
 const authURL = 'https://accounts.spotify.com/authorize';
-const redirectURI = 'http:%2F%2Flocalhost:3000';
+const redirectURI = 'https:%2F%2Fjamming-josh.herokuapp.com';
 const scopes = 'playlist-modify-private';
 const queryParams = `?client_id=${clientId}&redirect_uri=${redirectURI}&scope=${scopes}&response_type=token`;
 const authEndpoint = `${authURL}${queryParams}`;
