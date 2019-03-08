@@ -3,7 +3,8 @@ let accessToken = '';
 let expiresIn = '';
 
 const authURL = 'https://accounts.spotify.com/authorize';
-const redirectURI = 'https://jamming-josh.herokuapp.com/';
+// const redirectURI = 'http://localhost:3000'; // Uncomment for dev
+const redirectURI = 'https://jamming-josh.herokuapp.com'; // Uncomment for prod
 const scopes = 'playlist-modify-private';
 const queryParams = `?client_id=${clientId}&redirect_uri=${redirectURI}&scope=${scopes}&response_type=token`;
 const authEndpoint = `${authURL}${queryParams}`;
@@ -12,8 +13,8 @@ const Spotify = {
 
   getAccessToken: () => {
     if (accessToken) {
-      return;  // Return the access token if already set
-  } else if (window.location.href !== redirectURI) { // If the url is not our main app url, try to parse for the access token or error in url
+      return;  // Return if access token already set
+  } else if (window.location.href !== `${redirectURI}/`) { // If the url is not our main app url, try to parse for the access token or error in url
       if (window.location.href.match(/access_token=([^&]*)/)) {
         accessToken = window.location.href.match(/access_token=([^&]*)/)[1];
         expiresIn = Number(window.location.href.match(/expires_in=([^&]*)/)[1]);
