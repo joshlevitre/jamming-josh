@@ -24,6 +24,8 @@ const Spotify = {
       } else if (window.location.href.match(/error=([^&]*)/)) {
         console.log('Spotify returned error: ' + window.location.href.match(/error=([^&]*)/)[1]);
         return;
+      } else {
+        window.location = redirectURI; // this will probably trigger if they're not using https
       }
     } else {window.location = authEndpoint;} // Redirect to Spotify to get access token
   },
