@@ -3,6 +3,7 @@ let accessToken = '';
 let expiresIn = '';
 
 const authURL = 'https://accounts.spotify.com/authorize';
+const apiEndpoint = 'https://api.spotify.com/v1/';
 // const redirectURI = 'http://localhost:3000'; // Uncomment for dev
 const redirectURI = 'https://jamming-josh.herokuapp.com'; // Uncomment for prod
 const scopes = 'playlist-modify-private';
@@ -32,7 +33,7 @@ const Spotify = {
 
   getSearchResults: async (term) => {
     const trackQuery = term.replace(/\s/g, '%20'); // converts spaces to '%20'
-    const searchEndpoint = `https://api.spotify.com/v1/search?q=${trackQuery}&type=track`;
+    const searchEndpoint = `${apiEndpoint}search?q=${trackQuery}&type=track`;
 
     try {
       const response = await fetch(searchEndpoint, {
@@ -56,7 +57,7 @@ const Spotify = {
   },
 
   getUserId: async () => {
-    const userEndpoint = 'https://api.spotify.com/v1/me';
+    const userEndpoint = `${apiEndpoint}me`;
     const headers = { headers: {Authorization: `Bearer ${accessToken}`} };
 
     try {
@@ -70,7 +71,7 @@ const Spotify = {
   },
 
   createPlaylist: async (userId, playlistName) => {
-    const playlistEndpoint = `https://api.spotify.com/v1/users/${userId}/playlists`;
+    const playlistEndpoint = `${apiEndpoint}users/${userId}/playlists`;
     const data = JSON.stringify({
       name: playlistName,
       public: false
@@ -95,7 +96,7 @@ const Spotify = {
   },
 
   addTracksToPlaylist: async (playlistId, uris) => {
-    const playlistEndpoint = `https://api.spotify.com/v1/playlists/${playlistId}/tracks`;
+    const playlistEndpoint = `${apiEndpoint}playlists/${playlistId}/tracks`;
     const data = JSON.stringify({uris: uris});
     const headers = {
       'Authorization': `Bearer ${accessToken}`,
